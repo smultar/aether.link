@@ -1,0 +1,49 @@
+{
+    "TTMPVersion": "1.0s",
+    "Name": "Darfari - With Necklace",
+    "Author": "Illyriana",
+    "Version": "1.0.0",
+    "Description": null,
+    "ModPackPages": null,
+    "SimpleModsList": [{
+        "Name": "Gryphonskin Breastguard",
+        "Category": "Body",
+        "FullPath": "chara/equipment/e6010/texture/v01_c0201e6010_top_b_n.tex",
+        "ModOffset": 0,
+        "ModSize": 11800832,
+        "DatFile": "040000",
+        "ModPackEntry": null
+    }, {
+        "Name": "Gryphonskin Breastguard",
+        "Category": "Body",
+        "FullPath": "chara/equipment/e6010/texture/v01_c0201e6010_top_b_m.tex",
+        "ModOffset": 11800832,
+        "ModSize": 4780032,
+        "DatFile": "040000",
+        "ModPackEntry": null
+    }, {
+        "Name": "Gryphonskin Breastguard",
+        "Category": "Body",
+        "FullPath": "chara/equipment/e6010/material/v0001/mt_c0201e6010_top_b.mtrl",
+        "ModOffset": 16580864,
+        "ModSize": 11975936,
+        "DatFile": "040000",
+        "ModPackEntry": null
+    }, {
+        "Name": "Gryphonskin Breastguard",
+        "Category": "Body",
+        "FullPath": "chara/equipment/e6010/model/c0201e6010_top.mdl",
+        "ModOffset": 28556800,
+        "ModSize": 1014016,
+        "DatFile": "040000",
+        "ModPackEntry": null
+    }, {
+        "Name": "Gryphonskin Breastguard",
+        "Category": "Body",
+        "FullPath": "chara/equipment/e6010/material/v0001/mt_c0201e6010_top_a.mtrl",
+        "ModOffset": 29570816,
+        "ModSize": 113920,
+        "DatFile": "040000",
+        "ModPackEntry": null
+    }]
+}
