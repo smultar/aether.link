@@ -19,7 +19,8 @@
 
     .up-sub {
         font-size: 12px; font-weight: 400; color: rgb(126, 126, 126);
-        margin: 0; height: 20px; 
+        margin: 0; height: 20px; animation: fade-in-loop 2s ease infinite; 
+        text-transform: uppercase;
     }
 
     .version {

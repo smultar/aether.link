@@ -22,7 +22,7 @@ html {
     
     margin: 0px;
 
-    background-image: url('/svg/contours.svg');
+    background-image: url('/svg/contours.svg'); background-repeat: no-repeat; background-size: cover;
 }
 
 body {
@@ -88,17 +88,38 @@ body {
 }
 
 
+
 #controls {
-    height: 25px; width: 100%;
-    
-    position: absolute; top: 0;
-    
-    display: flex; justify-content: flex-end;
-    box-sizing: border-box; padding: 2% 3%;
-    
-    -webkit-app-region: drag; user-select: none;
+    top: 0;
+    width: 100%;
+
+    position: absolute;
+
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    padding: 2% 3%;
+
     z-index: 100;
+
+    -webkit-app-region: drag;
+    user-select: none;
+
+    #minimize {
+        opacity: 0.5;
+        -webkit-app-region: no-drag; -webkit-user-drag: none;
+        transition: all ease 0.3s;
+        margin-right: 7.5px;
+    }
+    
+    #close {
+        opacity: 0.5; -webkit-user-drag: none; 
+        -webkit-app-region: no-drag;
+        transition: all ease 0.3s;
+    }
 }
+
+
 
 @import "./animations.scss";
 @import "./elements.scss";
