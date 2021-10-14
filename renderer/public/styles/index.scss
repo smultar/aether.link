@@ -1,0 +1,104 @@
+
+/* Base */
+
+html {
+    
+    height: 100%; width: 100%;
+    
+    display: block; box-sizing: border-box;
+    
+    margin: 0px;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    
+}
+
+#page {
+
+    height: 100%; width: 100%;
+    
+    display: block; box-sizing: border-box;
+    
+    margin: 0px;
+
+    background-image: url('/svg/contours.svg');
+}
+
+body {
+    @extend html;
+    
+    #__next {
+        @extend html; background-color:#000000af;
+        //animation: fade-in 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+    
+    #page {
+        @extend html;
+        //animation: slide-top 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        flex-direction: column;
+    }
+
+}
+
+/* Scroll Bar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 2px;
+}
+
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e1e1e1;
+    border: 0px none #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #585858;
+    border: 0px none #ffffff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #000000;
+}
+
+::-webkit-scrollbar-track {
+    background: #dfdfdf;
+    border: 0px none #ffffff;
+}
+
+::-webkit-scrollbar-track:hover {
+    background: #666666;
+}
+
+::-webkit-scrollbar-track:active {
+    background: #333333;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+
+#controls {
+    height: 25px; width: 100%;
+    
+    position: absolute; top: 0;
+    
+    display: flex; justify-content: flex-end;
+    box-sizing: border-box; padding: 2% 3%;
+    
+    -webkit-app-region: drag; user-select: none;
+    z-index: 100;
+}
+
+@import "./animations.scss";
+@import "./elements.scss";

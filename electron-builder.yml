@@ -1,0 +1,13 @@
+appId: com.smultar.ttmp
+productName: TTMP Tweaker
+copyright: Copyright © 2021 Smultar
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: 
+  -github
