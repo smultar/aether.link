@@ -1,16 +1,16 @@
 import React from 'react';
 import electron, { ipcRenderer } from 'electron';
 
-function Component({ ipc }) {
+function Component({ page }) {
   return (
       <div id="controls">
-        <a id="minimize" href="#" onClick={() => { ipcRenderer.invoke(ipc) }}>
+        <div id="minimize" onClick={() => { console.log('click2'); ipcRenderer.invoke(`mini-${page}`) }}>
             <img src='/svg/minimize.svg'></img>
-        </a>
-        <a id="close" href="#" onClick={() => { ipcRenderer.invoke(ipc) }}>
+        </div>
+        <div id="close" onClick={() => { ipcRenderer.invoke(`close-${page}`) }}>
             <img src='/svg/close.svg'></img>
-        </a>
-    </div>
+        </div>
+      </div>
   );
 };
 
