@@ -1,6 +1,7 @@
 import { app, ipcMain } from 'electron';
 import serve from 'electron-serve';
 import { createWindow } from './helpers';
+import { autoUpdater } from 'electron-updater';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -13,19 +14,62 @@ if (isProd) {
 (async () => {
   await app.whenReady();
 
-  const mainWindow = createWindow('update', { width: 320, height: 480, transparent: true, blur: true, frame: false, resizable: false });
-
   if (isProd) {
-    await mainWindow.loadURL('app://./home.html');
+    await update.loadURL('app://./index.html');
   } else {
     const port = process.argv[2];
-    await mainWindow.loadURL(`http://localhost:${port}/`); mainWindow.setSize(320, 480)
-    //mainWindow.webContents.openDevTools();
+    //
+    //const main = createWindow('main', { width: 670, height: 480, transparent: true, blur: true, frame: false, resizable: false });
+    //await main.loadURL(`http://localhost:${port}/`);
+    
+    
+    
+    /* #region - Auto Update */
 
-    ipcMain.handle('close-update', async (event) => {
-      return mainWindow.close();
-    })
+      // Creates Window
+      const update = createWindow('update', { width: 320, height: 480, transparent: true, blur: true, frame: false, resizable: false });
+
+      // Loads Destination
+      await update.loadURL(`http://localhost:${port}/`); update.setSize(320, 480); update.title = 'TTMP - Updater';
+
+
+      // ACTIONS
+      
+      ipcMain.handle('close-update', async (event) => {
+        return update.close();
+      });
+
+      ipcMain.handle('mini-update', async (event) => {
+        return update.minimize()
+      });
+
+
+    /* #endregion */
+
+
+
+
   }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 })();
 
 app.on('window-all-closed', () => {
