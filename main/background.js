@@ -40,7 +40,7 @@ if (isProd) {
       });
 
       ipcMain.handle('mini-update', async (event) => {
-        return update.minimize()
+        return update.minimize();
       });
 
 

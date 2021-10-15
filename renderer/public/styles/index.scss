@@ -109,13 +109,22 @@ body {
         opacity: 0.5;
         -webkit-app-region: no-drag; -webkit-user-drag: none;
         transition: all ease 0.3s;
+
         margin-right: 7.5px;
+
+        &:hover {
+            opacity: 1;
+        }
     }
     
     #close {
-        opacity: 0.5; -webkit-user-drag: none; 
-        -webkit-app-region: no-drag;
+        opacity: 0.5; 
+        -webkit-user-drag: none; -webkit-app-region: no-drag;
         transition: all ease 0.3s;
+
+        &:hover {
+            opacity: 1;
+        }
     }
 }
 
