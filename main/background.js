@@ -42,7 +42,21 @@ if (isProd) {
       ipcMain.handle('mini-update', async (event) => {
         return update.minimize();
       });
+      
+      ipcMain.handle('mini-update', async (event) => {
+        return update.minimize();
+      });
 
+
+      // Auto Update
+      autoUpdater.on('checking-for-update', function () {
+        
+      });
+
+      // render recieve 
+      ipcRenderer.on('asynchronous-reply', (event, arg) => {
+        console.log("Hiii",arg) // prints "Hiii pong"
+      })
 
     /* #endregion */
 
