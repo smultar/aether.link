@@ -4,7 +4,7 @@ import { createWindow } from './helpers';
 import { autoUpdater } from 'electron-updater';
 
 const isProd = process.env.NODE_ENV === 'production';
-
+app.commandLine.appendSwitch("enable-transparent-visuals");
 if (isProd) {
   serve({ directory: 'app' });
 } else {
