@@ -26,8 +26,8 @@ function Page() {
       <div id="page">
         <Controls page={'update'}></Controls>
         <div id="updater">
-          <img src="/svg/ttmp-white.svg" draggable={false}></img>
-          <p className="up-title">TTMP TWEAKER</p>
+          <img src="/svg/logo-white.svg" draggable={false}></img>
+          <p className="up-title">AETHER LINK</p>
           <p className="up-sub">{status}</p>
           <p className="version">{Package.version}</p>
         </div>

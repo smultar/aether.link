@@ -30,7 +30,7 @@ if (isProd) {
       const update = createWindow('update', { width: 320, height: 480, transparent: true, blur: true, frame: false, resizable: false });
 
       // Loads Destination
-      await update.loadURL(`http://localhost:${port}/`); update.setSize(320, 480); update.title = 'TTMP - Updater';
+      await update.loadURL(`http://localhost:${port}/`); update.setSize(320, 480); update.title = 'Aether Link - Updater';
 
 
       // ACTIONS
@@ -53,7 +53,7 @@ if (isProd) {
         
       });
 
-      // render recieve 
+      // render receive 
       ipcRenderer.on('asynchronous-reply', (event, arg) => {
         console.log("Hiii",arg) // prints "Hiii pong"
       })
