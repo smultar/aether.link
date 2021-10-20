@@ -11,6 +11,8 @@ if (isProd) {
   app.setPath('userData', `${app.getPath('userData')} (development)`);
 }
 
+process.setMaxListeners(15);
+
 (async () => {
   await app.whenReady();
 
@@ -43,46 +45,48 @@ if (isProd) {
         return update.minimize();
       });
       
-      ipcMain.handle('mini-update', async (event) => {
-        return update.minimize();
-      });
-
 
       // Auto Update
-      autoUpdater.on('checking-for-update', function () {
-        
+      ipcMain.handle('check-update', async (event) => {
+        autoUpdater.checkForUpdates();
       });
 
-      // render receive 
-      ipcRenderer.on('asynchronous-reply', (event, arg) => {
-        console.log("Hiii",arg) // prints "Hiii pong"
-      })
+      autoUpdater.on('check-update', () => {
+        autoUpdater.checkForUpdates();      
+      });
+
+      autoUpdater.on('error', (error) => {
+        update.webContents.send('update-error', {status: 'error'});
+      });
+
+      autoUpdater.on('update-available', (updateInfo) => {
+        update.webContents.send('update-available', {status: 'receiving update'});
+        //logger.log('Update is available:', updateInfo);
+      });
+
+      autoUpdater.on('update-not-available', (updateInfo) => {
+        update.webContents.send('update-unavailable', {status: 'no updates available'});
+      });
+
+      autoUpdater.on('download-progress', (progressInfo) => {
+        update.webContents.send('update-progress', {status: 'downloading update', progress: progressInfo.percent });
+      });
+
+      autoUpdater.on('update-downloaded', (updateInfo) => {
+        update.webContents.send('update-ready', {status: 'Installing', control: autoUpdater});
+        // autoUpdater.quitAndInstall();
+      });
+
+      /* Check for updates manually */
+      autoUpdater.checkForUpdates();
+
+      /* Check updates every 60 minutes */
+      setInterval(() => {
+        autoUpdater.checkForUpdates();
+      }, 60 * 60 * 1000);
+  };
 
     /* #endregion */
-
-
-
-
-  }
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })();
 
