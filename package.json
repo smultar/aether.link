@@ -1,33 +1,98 @@
 {
   "name": "aether.link",
-  "description": "Quality of life tool, for Final Fantasy modders.",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "author": "Smultar <Jason@smultar.com>",
-  "main": "app/background.js",
-  "scripts": {
-    "dev": "nextron",
-    "build": "nextron build",
-    "postinstall": "electron-builder install-app-deps"
-  },
+  "description": "Quality of life tool, for Final Fantasy modders.",
+  "private": true,
+  "main": "./public/electron.js",
+  "homepage": "./",
   "dependencies": {
-    "electron-serve": "^1.1.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "concurrently": "^6.3.0",
+    "cross-env": "^7.0.3",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.3.9",
+    "electronmon": "^2.0.2",
     "glasstron": "^0.1.0",
-    "sass": "^1.42.1"
+    "node-sass": "^6.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3",
+    "sass": "^1.42.1",
+    "wait-on": "^6.0.0",
+    "web-vitals": "^1.1.2"
   },
   "devDependencies": {
-    "craco": "^0.0.3",
-    "electron": "^15.0.0",
-    "electron-builder": "^22.11.7",
-    "next": "^11.1.2",
-    "nextron": "^7.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "concurrently": "^6.3.0",
+    "electron": "^15.3.0",
+    "electron-builder": "^22.13.1"
+  },
+
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "electron:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electronmon .\"",
+    "electron:package:mac": "npm build && electron-builder -m -c.extraMetadata.main=build/electron.js",
+    "electron:package:win": "npm build && electron-builder -w -c.extraMetadata.main=build/electron.js --publish always",
+    "electron:package:linux": "npm build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      "last 1 electron version",
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 electron version",
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "build": {
+    "appId": "com.smultar.aether.link",
+    "productName": "aether.link",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "portable"
+    },
+    "portable": {
+        "artifactName": "aether.link.exe"
+    },
+    "linux": {
+      "target": "deb"
+    }
   },
   "keywords": [
     "final-fantasy-xiv",
     "modding-tools",
     "smultar"
-  ]
+  ],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/smultar/aether.link.git"
+  }
 }

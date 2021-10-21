@@ -14,21 +14,22 @@ html {
     
 }
 
-#page {
+#root {
 
     height: 100%; width: 100%;
-    
     display: block; box-sizing: border-box;
-    
     margin: 0px;
+}
 
+#page {
+    @extend html;
     background-image: url('/svg/contours.svg'); background-repeat: no-repeat; background-size: cover;
 }
 
 body {
     @extend html;
     
-    #__next {
+    #root {
         @extend html; background-color:#000000af;
         //animation: fade-in 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
