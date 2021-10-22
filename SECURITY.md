@@ -1,10 +1,10 @@
 # Security Policy
 
 ## Supported Versions
-I will be supporting all versions of **aether.link**, in regards to security updates.
+Aether.link handles version, via automatic updates in the application's core functionality. Keeping your application up to date, helps prevent any potential exploits, and allows you to receive n ew content and security updates.
+
 
 ## Reporting a Vulnerability
-If the security vulnerability involves userdata being exposed and is of high risk to the user of this application, please contact me `@Smultar#0001` on Discord. Any other security concerns can be reported in the issues section of this github.
+All reports are welcomed, please report all problems in the issue section, along with the `security` tag. You will receive a response, regarding your report within 24-48 hours.
 
-The status of said concerns will be addressed within 24-48 hours. An expected patch could be within a week after the update. 
-*It could even be within 5 mins, it all depends on the **complexity of the problem***
+A security patch will be deployed within a range of 5 mins to 24 hours, depending on the complexity and severity of the report received.
