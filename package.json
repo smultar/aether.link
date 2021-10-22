@@ -1,6 +1,6 @@
 {
   "name": "aether.link",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "author": "Smultar <Jason@smultar.com>",
   "description": "Quality of life tool, for Final Fantasy modders.",
   "private": true,
@@ -40,8 +40,9 @@
     "dist": "electron-builder",
     "electron:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electronmon .\"",
     "electron:package:mac": "npm build && electron-builder -m -c.extraMetadata.main=build/electron.js",
-    "electron:package:win": "npm build && electron-builder -w -c.extraMetadata.main=build/electron.js --publish always",
-    "electron:package:linux": "npm build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+    "electron:package:win": "npm react-scripts build && electron-builder -w --publish always",
+    "electron:package:linux": "npm build && electron-builder -l -c.extraMetadata.main=build/electron.js",
+    "postinstall": "electron-builder install-app-deps" 
   },
   "eslintConfig": {
     "extends": [
@@ -70,6 +71,15 @@
       "build/**/*",
       "node_modules/**/*"
     ],
+    "publish": [{
+      "provider": "github",
+      "owner": "smultar",
+      "repo": "aether.link",
+      "token": "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 "
+    }],
+    "portable": {
+      "artifactName": "aether.link.exe"
+    },
     "directories": {
       "buildResources": "public"
     },
@@ -77,14 +87,13 @@
       "target": "dmg"
     },
     "win": {
-      "target": "portable"
-    },
-    "portable": {
-        "artifactName": "aether.link.exe"
+      "target": "nsis",
+      "icon": "build/icons/icon.ico"
     },
     "linux": {
       "target": "deb"
     }
+    
   },
   "keywords": [
     "final-fantasy-xiv",

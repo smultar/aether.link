@@ -33,15 +33,13 @@ function createWindow() {
 function updateWindow() {
 
     const updateWindow = new Glasstron.BrowserWindow({
+        icon: 'src/icons/icon.icns',
         blurType: 'blurbehind',
         width: 320, height: 480, transparent: true, blur: true, frame: false, resizable: false,
         // Set the path of an additional "preload" script that can be used to
         // communicate between node-land and browser-land.
         webPreferences: {
-            nodeIntegration: true,
-            enableRemoteModule: true,
-            experimentalFeatures: true,
-            contextIsolation: false,
+            contextIsolation: true,
             preload: path.join(__dirname, "preload.js"),
         },
     });
@@ -51,7 +49,7 @@ function updateWindow() {
     updateWindow.title = 'Aether Link - Updater';
     updateWindow.loadURL(appURL);
 
-    updateWindow.blurType = "blurbehind"
+    updateWindow.blurType = "blurbehind";
     updateWindow.setBlur(true);
 
     if (!app.isPackaged) {
@@ -63,11 +61,16 @@ function updateWindow() {
       autoUpdater.checkForUpdates();
     });
 
+    ipcMain.handle('install-update', async (event) => {
+      autoUpdater.quitAndInstall();
+    });
+
     autoUpdater.on('checking-for-update', () => {
         updateWindow.webContents.send('check-update', {status: 'checking for updates'});
     });
 
     autoUpdater.on('error', (error) => {
+      console.log(error)
         updateWindow.webContents.send('update-error', {status: 'error'});
     });
 
@@ -81,18 +84,29 @@ function updateWindow() {
 
     autoUpdater.on('download-progress', (progressInfo) => {
       updateWindow.webContents.send('update-progress', {status: 'downloading update', progress: progressInfo.percent });
+      console.log(progressInfo);
     });
 
     autoUpdater.on('update-downloaded', (updateInfo) => {
-      updateWindow.webContents.send('update-ready', {status: 'Installing', control: autoUpdater});
+      console.log(updateInfo);
+      updateWindow.webContents.send('update-ready', {status: 'Installing'});
     });
 
     /* Check for updates manually */
-    autoUpdater.checkForUpdates();
+    
 
-    setInterval(() => {
-      updateWindow.webContents.send('test', {status: 'error'});
-    }, 1000);
+    updateWindow.on('ready-to-show', () => {
+      autoUpdater.checkForUpdates();
+    });
+
+    ipcMain.handle('close-update', async (event) => {
+      return updateWindow.close();
+    });
+
+    ipcMain.handle('mini-update', async (event) => {
+      return updateWindow.minimize();
+    });
+    
 
       
 

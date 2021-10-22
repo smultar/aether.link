@@ -5,8 +5,6 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import Package from '../old/package.json'
-
 // Components
 import Controls from './comp/controls';
 
@@ -75,12 +73,12 @@ function Page() {
     <div id="page">
         <Controls page={'update'}></Controls>
         <div id="updater">
-          <img src="/svg/logo-white.svg" draggable={false}></img>
+          <img src="svg/logo-white.svg" draggable={false}></img>
           <p className="up-title">AETHER LINK</p>
           <p className="up-sub">{status}</p>
-          <p className="version">{(attempts >= 1) ? attempts : Package.version}</p>
+          <p className="version">{(attempts >= 1) ? attempts : '0.1.2'}</p>
         </div>
-          <div className="win-btm" style={width: 20} ></div>
+          <div className="win-btm" style={{width: `${stage}%`}} ></div>
     </div>
   );
 };
