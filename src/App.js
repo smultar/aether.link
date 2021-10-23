@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import './styles/index.scss';
 
-//const electron = window.require('electron');
+import config from './config';
 
 function App() {
 
@@ -77,10 +77,11 @@ function App() {
   }, [])
 
 
+
   return (
     <div id="page">
       <div id="controls">
-        <div id="minimize" onClick={() => {ipc.invoke(`mini-update`) }}>
+        <div id="minimize" onClick={() => { ipc.invoke(`mini-update`) }}>
             <img src='svg/minimize.svg'></img>
         </div>
         <div id="close" onClick={() => { ipc.invoke(`close-update`) }}>
@@ -89,9 +90,9 @@ function App() {
       </div>
       <div id="updater">
         <img src="svg/logo-white.svg" draggable={false}></img>
-        <p className="up-title">AETHER LINK</p>
+        <p className="up-title">{config.name.display}</p>
         <p className="up-sub">{status}</p>
-        <p className="version">{(attempts >= 1) ? attempts : '0.1.3' }</p>
+        <p className="version">{(attempts >= 1) ? attempts : config.version }</p>
       </div>
       <div className="win-btm" style={{width: `${stage}%`}} ></div>
     </div>

@@ -4,7 +4,7 @@
   "author": "Smultar <Jason@smultar.com>",
   "description": "Quality of life tool, for Final Fantasy modders.",
   "private": true,
-  "main": "./public/electron.js",
+  "main": "./public/main.js",
   "homepage": "./",
   "dependencies": {
     "concurrently": "^6.3.0",

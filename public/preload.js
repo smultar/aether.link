@@ -1,3 +1,4 @@
+// Preload action based function, internally for security reasons
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
@@ -7,6 +8,6 @@ contextBridge.exposeInMainWorld('electron', {
     },
     invoke(data) {
       ipcRenderer.invoke(data);
-    }
-  }
+    },
+  }, 
 });

@@ -33,24 +33,22 @@ function createWindow() {
 function updateWindow() {
 
     const updateWindow = new Glasstron.BrowserWindow({
-        icon: 'src/icons/icon.icns',
+        icon: './src/icons/icon.ico',
         blurType: 'blurbehind',
         width: 320, height: 480, transparent: true, blur: true, frame: false, resizable: false,
-        // Set the path of an additional "preload" script that can be used to
-        // communicate between node-land and browser-land.
+
         webPreferences: {
             contextIsolation: true,
             preload: path.join(__dirname, "preload.js"),
         },
     });
+    
+    updateWindow.title = 'Aether Link - Updater';
 
     const appURL = app.isPackaged ? url.format({ pathname: path.join(__dirname, "index.html"), protocol: "file:", slashes: true, }) : "http://localhost:3000";
 
-    updateWindow.title = 'Aether Link - Updater';
     updateWindow.loadURL(appURL);
 
-    updateWindow.blurType = "blurbehind";
-    updateWindow.setBlur(true);
 
     if (!app.isPackaged) {
       updateWindow.webContents.openDevTools();
@@ -70,8 +68,7 @@ function updateWindow() {
     });
 
     autoUpdater.on('error', (error) => {
-      console.log(error)
-        updateWindow.webContents.send('update-error', {status: 'error'});
+        updateWindow.webContents.send('update-error', {status: 'error', error: error });
     });
 
     autoUpdater.on('update-available', (updateInfo) => {
