@@ -7,14 +7,10 @@
   "main": "./public/electron.js",
   "homepage": "./",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.3",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.3.9",
-    "electronmon": "^2.0.2",
     "glasstron": "^0.1.0",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
@@ -26,6 +22,10 @@
     "web-vitals": "^1.1.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "electronmon": "^2.0.2",
     "concurrently": "^6.3.0",
     "electron": "^15.3.0",
     "electron-builder": "^22.13.1"
@@ -40,7 +40,7 @@
     "dist": "electron-builder",
     "electron:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electronmon .\"",
     "electron:package:mac": "npm build && electron-builder -m -c.extraMetadata.main=build/electron.js",
-    "electron:package:win": "npm react-scripts build && electron-builder -w --publish always",
+    "electron:package:win": "concurrently -k \"npm build \" \"electron-builder -w --publish always\"",
     "electron:package:linux": "npm build && electron-builder -l -c.extraMetadata.main=build/electron.js",
     "postinstall": "electron-builder install-app-deps" 
   },
