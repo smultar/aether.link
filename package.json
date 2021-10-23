@@ -74,7 +74,7 @@
     "publish": [{
       "provider": "github",
       "owner": "smultar",
-      "repo": "aether.link",
+      "repo": "aether.link"
     }],
     "portable": {
       "artifactName": "aether.link.exe"
