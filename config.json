@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "name": {
+        "uni": "aether.link",
+        "display": "Aether Link"
+    },
+    "information": {
+        "author": "smultar",
+        "social": {
+            "patreon": "https://patreon.com/smultar",
+            "twitch": "https://twitch.tv/smultar",
+            "twitter": "https://twitter.com/smuItar",
+            "discord": "https://discord.gg/pBHJU7c"
+        }
+    },
+    "version": "0.1.3"
+}

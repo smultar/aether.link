@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 // Components
 import Controls from './comp/controls';
+import config from '../config.json';
 
 function Page() {
 
@@ -74,9 +75,9 @@ function Page() {
         <Controls page={'update'}></Controls>
         <div id="updater">
           <img src="svg/logo-white.svg" draggable={false}></img>
-          <p className="up-title">AETHER LINK</p>
+          <p className="up-title">{config.name}</p>
           <p className="up-sub">{status}</p>
-          <p className="version">{(attempts >= 1) ? attempts : '0.1.2'}</p>
+          <p className="version">{(attempts >= 1) ? attempts : config.version}</p>
         </div>
           <div className="win-btm" style={{width: `${stage}%`}} ></div>
     </div>
