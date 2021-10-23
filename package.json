@@ -75,7 +75,6 @@
       "provider": "github",
       "owner": "smultar",
       "repo": "aether.link",
-      "token": "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 "
     }],
     "portable": {
       "artifactName": "aether.link.exe"
