@@ -46,12 +46,12 @@ function updateWindow() {
     updateWindow.title = 'Aether Link - Updater';
 
     const appURL = app.isPackaged ? url.format({ pathname: path.join(__dirname, "index.html"), protocol: "file:", slashes: true, }) : "http://localhost:3000";
-
+    
     updateWindow.loadURL(appURL);
 
 
     if (!app.isPackaged) {
-      updateWindow.webContents.openDevTools();
+      //updateWindow.webContents.openDevTools();
     }
 
     // Auto Update
@@ -77,15 +77,14 @@ function updateWindow() {
 
     autoUpdater.on('update-not-available', (updateInfo) => {
       updateWindow.webContents.send('update-unavailable', {status: 'no updates available'});
+
     });
 
     autoUpdater.on('download-progress', (progressInfo) => {
       updateWindow.webContents.send('update-progress', {status: 'downloading update', progress: progressInfo.percent });
-      console.log(progressInfo);
     });
 
     autoUpdater.on('update-downloaded', (updateInfo) => {
-      console.log(updateInfo);
       updateWindow.webContents.send('update-ready', {status: 'Installing'});
     });
 
@@ -103,16 +102,91 @@ function updateWindow() {
     ipcMain.handle('mini-update', async (event) => {
       return updateWindow.minimize();
     });
+}
+
+function mainWindow() {
+
+    const mainWindow = new Glasstron.BrowserWindow({
+        icon: './src/icons/icon.ico',
+        blurType: 'blurbehind',
+        width: 1150, height: 620, transparent: true, blur: true, frame: false, resizable: false,
+
+        webPreferences: {
+            contextIsolation: true,
+            preload: path.join(__dirname, "preload.js"),
+        },
+    });
+    
+    mainWindow.title = 'Aether Link';
+    const appURL = app.isPackaged ? url.format({ pathname: path.join(__dirname, "index.html#main"), protocol: "file:", slashes: true, }) : "http://localhost:3000/main";
+    mainWindow.loadURL(appURL);
+
+
+    if (!app.isPackaged) {
+      //mainWindow.webContents.openDevTools();
+    }
+
+    // Auto Update
+    ipcMain.handle('check-update', async (event) => {
+      autoUpdater.checkForUpdates();
+    });
+
+    ipcMain.handle('install-update', async (event) => {
+      autoUpdater.quitAndInstall();
+    });
+
+    autoUpdater.on('checking-for-update', () => {
+        mainWindow.webContents.send('check-update', {status: 'checking for updates'});
+    });
+
+    autoUpdater.on('error', (error) => {
+        mainWindow.webContents.send('update-error', {status: 'error', error: error });
+    });
+
+    autoUpdater.on('update-available', (updateInfo) => {
+      mainWindow.webContents.send('update-available', {status: 'receiving update'});
+    });
+
+    autoUpdater.on('update-not-available', (updateInfo) => {
+      mainWindow.webContents.send('update-unavailable', {status: 'no updates available'});
+    });
+
+    autoUpdater.on('download-progress', (progressInfo) => {
+      mainWindow.webContents.send('update-progress', {status: 'downloading update', progress: progressInfo.percent });
+      console.log(progressInfo);
+    });
+
+    autoUpdater.on('update-downloaded', (updateInfo) => {
+      console.log(updateInfo);
+      mainWindow.webContents.send('update-ready', {status: 'Installing'});
+    });
+
+    /* Check for updates manually */
     
 
-      
+    mainWindow.on('ready-to-show', () => {
+      autoUpdater.checkForUpdates();
+    });
 
+    ipcMain.handle('close-update', async (event) => {
+      return mainWindow.close();
+    });
+
+    ipcMain.handle('mini-update', async (event) => {
+      return mainWindow.minimize();
+    });
+    
 }
 
 /* Check updates every 60 minutes */
 setInterval(() => {
     autoUpdater.checkForUpdates();
 }, 60 * 60 * 1000);
+
+// Auto Update
+ipcMain.handle('open-main', async (event) => {
+  mainWindow();
+});
 
 // Setup a local proxy to adjust the paths of requested files when loading
 // them from the local production bundle (e.g.: local fonts, etc...).
