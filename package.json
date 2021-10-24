@@ -4,7 +4,7 @@
   "author": "Smultar <Jason@smultar.com>",
   "description": "Quality of life tool, for Final Fantasy modders.",
   "private": false,
-  "main": "./public/main.js",
+  "main": "./public/electron.js",
   "homepage": "./",
   "dependencies": {
     "cross-env": "^7.0.3",
@@ -31,7 +31,7 @@
     "react:start": "react-scripts start",
     "react:build": "react-scripts build",
     "react:eject": "react-scripts eject",
-    "electron:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electronmon .\"",
+    "electron:start": "concurrently -k \"cross-env BROWSER=none npm run react:start\" \"wait-on http://localhost:3000 && electronmon .\"",
     "electron:package:win": "concurrently -k \"npm build \" \"electron-builder -w --publish always\"",
     "postinstall": "electron-builder install-app-deps" 
   },
