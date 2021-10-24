@@ -3,11 +3,10 @@
   "version": "0.1.3",
   "author": "Smultar <Jason@smultar.com>",
   "description": "Quality of life tool, for Final Fantasy modders.",
-  "private": true,
+  "private": false,
   "main": "./public/main.js",
   "homepage": "./",
   "dependencies": {
-    "concurrently": "^6.3.0",
     "cross-env": "^7.0.3",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.3.9",
@@ -18,13 +17,10 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "sass": "^1.42.1",
-    "wait-on": "^6.0.0",
-    "web-vitals": "^1.1.2"
+    "wait-on": "^6.0.0"
   },
+
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
     "electronmon": "^2.0.2",
     "concurrently": "^6.3.0",
     "electron": "^15.3.0",
@@ -32,24 +28,14 @@
   },
 
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "react:start": "react-scripts start",
+    "react:build": "react-scripts build",
+    "react:eject": "react-scripts eject",
     "electron:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electronmon .\"",
-    "electron:package:mac": "npm build && electron-builder -m -c.extraMetadata.main=build/electron.js",
     "electron:package:win": "concurrently -k \"npm build \" \"electron-builder -w --publish always\"",
-    "electron:package:linux": "npm build && electron-builder -l -c.extraMetadata.main=build/electron.js",
     "postinstall": "electron-builder install-app-deps" 
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+
   "browserslist": {
     "production": [
       "last 1 electron version",
@@ -57,6 +43,7 @@
       "not dead",
       "not op_mini all"
     ],
+
     "development": [
       "last 1 electron version",
       "last 1 chrome version",
@@ -64,6 +51,7 @@
       "last 1 safari version"
     ]
   },
+
   "build": {
     "appId": "com.smultar.aether.link",
     "productName": "aether.link",
@@ -71,36 +59,57 @@
       "build/**/*",
       "node_modules/**/*"
     ],
+
     "publish": [{
       "provider": "github",
       "owner": "smultar",
       "repo": "aether.link"
     }],
+
     "portable": {
-      "artifactName": "aether.link.exe"
+      "artifactName": "aether.link.exe",
+      "artifactCompanyName": "Smultar",
+      "artifactDescription": "Quality of life tool, for Final Fantasy modders.",
+      "artifactCopyright": "Copyright © Smultar 2021"
     },
+
     "directories": {
       "buildResources": "public"
     },
+
     "mac": {
       "target": "dmg"
     },
+
     "win": {
       "target": "nsis",
       "icon": "build/icons/icon.ico"
     },
+
     "linux": {
       "target": "deb"
     }
     
   },
+
   "keywords": [
+    "ffxiv",
+    "ffxiv-modding",
+    "ffxiv-modding-tools",
+    "ffxiv-modding-tools-aether.link",
+    "ffxiv-modding-tools-aether.link-smultar",
     "final-fantasy-xiv",
     "modding-tools",
-    "smultar"
+    "smultar",
+    "aether.link"
   ],
+
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/smultar/aether.link.git"
+    "private": false,
+    "owner": "smultar",
+    "name": "aether.link",
+    "description": "Quality of life tool, for Final Fantasy modders.",
+    "url" : "https://github.com/smultar/aether.link.git",
+    "type" : "git"
   }
 }
