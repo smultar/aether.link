@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, HashRouter, Switch, Route, Link } from "react-router-dom";
 
-// SCSS
-import '../styles/index.scss';
 
 // Global
 import config from '../config.json';
 
-const Page = () => {
+// Component
+import Title from '../comp/window/title';
+import Dock from '../comp/dock/index';
+import DockRender from '../comp/window/main';
 
+
+
+const Page = () => {
 
     // Render
     return (
-        <div id="page">
-          <div id="updater">
-            <img src="svg/logo-white.svg" draggable={false}></img>
-            <p className="up-title">{config.name.display}</p>
-            <p className="up-sub">MAIN PAGE</p>
-
-          </div>
+        <div id="main">
+            <Title config={config} window={window} />
+            <div className='main'>
+                <Dock config={config} window={window} />
+                <DockRender></DockRender>
+            </div>
         </div>
       );
 

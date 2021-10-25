@@ -1,11 +1,13 @@
 // Module to control the application lifecycle and the native browser window.
-const { app, BrowserWindow, protocol, ipcMain } = require("electron");
+const { app, protocol, ipcMain } = require("electron");
+const { BrowserWindow } = require('electron-acrylic-window')
 const Glasstron = require('glasstron');
 const path = require("path");
 const url = require("url");
 
 const { autoUpdater } = require('electron-updater');
 
+require('@electron/remote/main').initialize();
 // Create the native browser window.
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -18,25 +20,27 @@ function createWindow() {
     },
   });
 
+  
   // In production, set the initial browser path to the local bundle generated
   // by the Create React App build process.
   // In development, set it to localhost to allow live/hot-reloading.
   const appURL = app.isPackaged ? url.format({ pathname: path.join(__dirname, "index.html"), protocol: "file:", slashes: true, }) : "http://localhost:3000";
   mainWindow.loadURL(appURL);
-
+  
   // Automatically open Chrome's DevTools in development mode.
   if (!app.isPackaged) {
     mainWindow.webContents.openDevTools();
   }
+
 }
 
 function updateWindow() {
 
-    const updateWindow = new Glasstron.BrowserWindow({
+    const updateWindow = new BrowserWindow({
         icon: './src/icons/icon.ico',
         blurType: 'blurbehind',
         width: 320, height: 480, transparent: true, blur: true, frame: false, resizable: false,
-
+        alwaysOnTop: true,
         webPreferences: {
             contextIsolation: true,
             preload: path.join(__dirname, "preload.js"),
@@ -47,7 +51,7 @@ function updateWindow() {
 
     const appURL = app.isPackaged ? url.format({ pathname: path.join(__dirname, "index.html"), protocol: "file:", slashes: true, }) : "http://localhost:3000";
     
-    updateWindow.loadURL(appURL);
+    updateWindow.loadURL(appURL); require("@electron/remote/main").enable(updateWindow.webContents);
 
 
     if (!app.isPackaged) {
@@ -106,9 +110,9 @@ function updateWindow() {
 
 function mainWindow() {
 
-    const mainWindow = new Glasstron.BrowserWindow({
+    const mainWindow = new BrowserWindow({
         icon: './src/icons/icon.ico',
-        blurType: 'blurbehind',
+        vibrancy: { disableOnBlur: false},
         width: 1150, height: 620, transparent: true, blur: true, frame: false, resizable: false,
 
         webPreferences: {
@@ -120,6 +124,7 @@ function mainWindow() {
     mainWindow.title = 'Aether Link';
     const appURL = app.isPackaged ? url.format({ pathname: path.join(__dirname, "index.html#main"), protocol: "file:", slashes: true, }) : "http://localhost:3000/main";
     mainWindow.loadURL(appURL);
+    require("@electron/remote/main").enable(mainWindow.webContents);
 
 
     if (!app.isPackaged) {
@@ -185,7 +190,7 @@ setInterval(() => {
 
 // Auto Update
 ipcMain.handle('open-main', async (event) => {
-  mainWindow();
+  mainWindow(); 
 });
 
 // Setup a local proxy to adjust the paths of requested files when loading

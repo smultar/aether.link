@@ -7,5 +7,6 @@
         "modders",
         "smultar",
         "tweaker"
-    ]
+    ],
+    "discord.enabled": true
 }

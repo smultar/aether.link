@@ -1,5 +1,9 @@
 // Preload action based function, internally for security reasons
-const { contextBridge, ipcRenderer, remote } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
+
+// After
+const { BrowserWindow } = require('@electron/remote');
+
 
 contextBridge.exposeInMainWorld('link', {
   api: {
@@ -11,15 +15,15 @@ contextBridge.exposeInMainWorld('link', {
     },
   },
 
-  actions: {
-    minimize() {
-      remote.BrowserWindow.getFocusedWindow().minimize();
+  action: {
+    minimize: () => {
+      BrowserWindow.getFocusedWindow().minimize();
     },
-    maximize() {
-      remote.BrowserWindow.getFocusedWindow().maximize();
+    maximize: () =>{
+      BrowserWindow.getFocusedWindow().maximize();
     },
-    close() {
-      remote.BrowserWindow.getFocusedWindow().close();
+    close: () => {
+      BrowserWindow.getFocusedWindow().close();
     },
   }
 });

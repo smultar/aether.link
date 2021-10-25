@@ -21,59 +21,53 @@ html {
     margin: 0px;
 }
 
-#page {
-    @extend html;
-    background-image: url('/svg/contours.svg'); background-repeat: no-repeat; background-size: cover;
-}
-
 body {
     @extend html;
     
     #root {
-        @extend html; background-color:#000000af;
-        //animation: fade-in 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: fade-in 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        @extend html;
     }
     
     #page {
-        @extend html;
+        @extend html; background-color:#000000af;
+        background-image: url('/svg/contours.svg'); background-repeat: no-repeat; background-size: cover;
+
         //animation: slide-top 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         flex-direction: column;
+    }
+    
+    #main {
+        @extend html; flex-direction: row; box-sizing: border-box;
     }
 
 }
 
 /* Scroll Bar */
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
     height: 2px;
 }
 
 ::-webkit-scrollbar-button {
-    width: 0px;
-    height: 0px;
+    width: 0px; height: 0px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #e1e1e1;
-    border: 0px none #ffffff;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #585858;
+    background: #000000;
     border: 0px none #ffffff;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #ffffff;
+    background: #067d82;
 }
 
 ::-webkit-scrollbar-thumb:active {
-    background: #000000;
+    background: #ff0000;
 }
 
 ::-webkit-scrollbar-track {
-    background: #dfdfdf;
-    border: 0px none #ffffff;
+    background: #00000060; border-left: 1px solid #ffffff13
 }
 
 ::-webkit-scrollbar-track:hover {

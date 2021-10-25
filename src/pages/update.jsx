@@ -68,7 +68,7 @@ const Update = () => {
           setTimeout(() => {
             window.link.api.invoke('open-main');
             window.link.api.invoke('close-update');
-          }, 1000);
+          }, 3000);
         });
     
         window.link.api.on('update-ready', (event, argument) => {
