@@ -30,3 +30,12 @@
         -webkit-transform: rotate(360deg);
     }
 }
+
+@keyframes scale-in {
+    from{
+        transform: scaleY(0);
+    }
+    to{
+        transform: scaleY(1);
+    }
+}

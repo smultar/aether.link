@@ -12,6 +12,15 @@ html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     
+
+    
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
 
 #root {
