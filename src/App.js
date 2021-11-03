@@ -7,6 +7,7 @@ import config from './config';
 // Pages
 import Update from "./pages/update";
 import Main from "./pages/main";
+import Crash from "./pages/crash";
 
 const Handle = () => {
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
@@ -15,6 +16,7 @@ const Handle = () => {
         <Switch>
           <Route exact path='/' component={Update}/>
           <Route exact path='/main' component={Main}/>
+          <Route exact path='/crash' component={Crash}/>
         </Switch>
       </BrowserRouter>
     )
@@ -24,6 +26,7 @@ const Handle = () => {
         <Switch>
           <Route exact path='/' component={Update}/>
           <Route exact path='/main' component={Main}/>
+          <Route exact path='/crash' component={Crash}/>
         </Switch>
       </HashRouter>
     )
