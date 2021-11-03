@@ -3,7 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 // After
 const { BrowserWindow } = require('@electron/remote');
-const { dialog } = require('@electron/remote');
+const { dialog, shell } = require('@electron/remote');
 
 const ADM = require('adm-zip');
 
@@ -15,6 +15,9 @@ contextBridge.exposeInMainWorld('link', {
     invoke(data) {
       ipcRenderer.invoke(data);
     },
+    openExternal(url) {
+      shell.openExternal(url);
+    }
   },
 
   action: {

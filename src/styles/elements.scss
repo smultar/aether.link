@@ -255,11 +255,19 @@
                             }
 
                             .load-file {
-                                height: 21px; padding: 0% 1%;
-                                display: flex; align-items: center; text-align: center;
-                                font-size: 14px; font-weight: 400; color: black;
                                 background-color: #00ffbf; border-radius: 4px;
                                 transition: all ease 0.3s;
+                                
+                                width: auto; height: auto; 
+                                padding: 5px 10px; margin: 0px;;
+                                text-transform: uppercase; font-size: 12px;
+                                
+                                border-radius: 5px;
+                                background-color: #00ffbf;
+                                
+                                transition: all 0.3s ease;
+                                text-decoration: none;
+                                color: black;
 
                                 &:hover {
                                     background-color: #00ffbf2c;
@@ -497,9 +505,34 @@
     display: flex; flex-direction: column;
     justify-content: center; align-items: center;
     transition: all 0.3s ease;
+    transition: all 0.3s ease;
     
     
     color: white;
+
+    Link {
+        text-decoration: none !important;
+    }
+
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .errorBox {
+        width: 50vw; height: auto; max-height: 30vw;
+        background-color: #00000033;
+        outline: 1px solid #c9c9c967; 
+        padding: 1vw; box-sizing: border-box;
+
+        margin: 1vw 1vw; border-radius: 5px;
+
+        .error {
+            color: #a9a026; margin: 0; font-size: 12px;
+            white-space: pre-wrap;
+        }
+    }
     
     .ahhh {
         font-size: 100px; margin: 0;
@@ -514,6 +547,39 @@
     .ah {
         @extend .ahhh; font-size: 13px; margin-top: 10px;
         color: #8a8a8a;
+    }
+
+    .float {
+        height: 50px; width: 100%;
+        display: flex; color: black;
+        justify-content: center; align-items: center;
+
+        transition: all 0.3s ease;
+
+        .button {
+            width: auto; height: auto; 
+            padding: 5px 10px; margin: 5px;
+            text-transform: uppercase; font-size: 12px;
+
+            border-radius: 5px;
+            background-color: #00ffbf;
+
+            transition: all 0.3s ease;
+            text-decoration: none;
+
+            &.red {
+                background-color: #ff3c00;
+
+                &:hover {
+                    background-color: #ff3c004a;
+                }
+            }
+
+            &:hover {
+                background-color: #ffffff2c;
+                cursor: pointer;
+            }
+        }
     }
 
 

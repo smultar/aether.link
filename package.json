@@ -34,7 +34,7 @@
     "react:build": "react-scripts build",
     "react:eject": "react-scripts eject",
     "electron:start": "concurrently -k \"cross-env BROWSER=none npm run react:start\" \"wait-on http://localhost:3000 && electronmon --trace-warnings .\"",
-    "electron:package:win": "concurrently -k \"npm build \" \"electron-builder -w --publish always\"",
+    "electron:package:win": "concurrently -k \"npm react:build \" \"electron-builder -w --publish never\"",
     "postinstall": "electron-builder install-app-deps"
   },
   "browserslist": {

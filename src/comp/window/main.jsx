@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 
-
-
-function Component({ config, window }) {
+function Component({ config, window, history}) {
     const [file, setFile] = useState([]);
     const [editor, setEditor] = useState({mods: [], content: { name: '', description: 'No description provided, would you like to add one?', author: '', version: ''}, file: { name: '', content: ''}, selected: null});
-    
+
     const [selected, setSelected] = useState({options: [
         {label: 'Body', value: 'Body'}, 
         {label: 'Legs', value: 'Legs'},
@@ -100,10 +98,10 @@ function Component({ config, window }) {
         newEditor.mods[editor.selected].name = content;
         setEditor(newEditor);
     }
-
-
+    
     return (
         <div id="dock-render">
+
             <div id="dock-render-content">
                 {/* Header */}
                 <div id="header">
@@ -165,14 +163,13 @@ function Component({ config, window }) {
                     <div className="body-sec">
                         <Select value={selected.selected} isLoading={selected.load} placeholder="Pending" classNamePrefix="react-select" options={selected.options} onChange={(value) => console.log(value)}/>
                         <input className="input" type="text" placeholder="Name" value={editor.mods[editor.selected]?.name} onChange={event => {editModName(event.target.value)}}></input>
-                        <input className="input" type="text" placeholder="Category" value={editor.mods[editor.selected]?.category}></input>
                     </div>
                     
                 </div>
             </div>
         </div>
     );
-  };
+};
   
   export default Component;
   

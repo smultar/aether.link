@@ -12,9 +12,21 @@ import DockRender from '../comp/window/main';
 
 
 
-const Page = () => {
-
+const Page = ({history}) => {
     const [file, setFile] = useState();
+    
+    useEffect(() => {
+        window.onunhandledrejection = (err) => {
+            console.log(err);
+            history.push('/crash', {error: err.reason.stack});
+        }
+
+        window.onerror = (err) => {
+            console.log(err);
+            history.push('/crash', {error: err});
+        }
+    
+    }, []);
 
     // Render
     return (
@@ -22,11 +34,10 @@ const Page = () => {
             <Title config={config} window={window} />
             <div className='main'>
                 <Dock config={config} window={window} />
-                <DockRender config={config} window={window} ></DockRender>
+                <DockRender config={config} window={window} history={history}></DockRender>
             </div>
         </div>
       );
-
 }
 
 export default Page;
