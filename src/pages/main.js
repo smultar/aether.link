@@ -14,13 +14,15 @@ import DockRender from '../comp/window/main';
 
 const Page = () => {
 
+    const [file, setFile] = useState();
+
     // Render
     return (
         <div id="main">
             <Title config={config} window={window} />
             <div className='main'>
                 <Dock config={config} window={window} />
-                <DockRender></DockRender>
+                <DockRender config={config} window={window} ></DockRender>
             </div>
         </div>
       );
