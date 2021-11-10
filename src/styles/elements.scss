@@ -302,7 +302,7 @@
                             color: white;
 
                             font-size: 21px; font-weight: 400; color: #ffffff;
-                            text-transform: capitalize; user-select: none;
+                            user-select: none;
                             margin: 0; 
 
                             &:focus {
@@ -321,7 +321,7 @@
                             color: white;
 
                             font-size: 12px; font-weight: 400; color: #7e7e7e;
-                            text-transform: capitalize; user-select: none;
+                            user-select: none;
                             margin: 0;
 
                             &:focus {
@@ -349,7 +349,7 @@
                             color: white;
 
                             font-size: 12px; font-weight: 400; color: #7e7e7e;
-                            text-transform: capitalize; user-select: none;
+                            user-select: none;
                             margin: 10px 0 0 0;
 
                             &:focus {
@@ -390,7 +390,7 @@
 
                                 .name {
                                     font-size: 14px; font-weight: 400; color: white;
-                                    user-select: none; margin: 0; text-transform: capitalize;
+                                    user-select: none; margin: 0;
                                 }
 
                                 .category {
