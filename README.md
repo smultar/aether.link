@@ -8,7 +8,7 @@
 Aether Link is a qualitty of life tool, designed to unified the modding expereince in `Final Fantasy XIV`, providing modders with a centralized hub with all of their tools.
 
 ### The Problem
-Lets face it, modding is a pain the butt, and no one seems to be addressing the simple issues that the community has complaints about. This project is aimed to assit and to resolve the complains I have heard. With this project, you can look forward to **organization of your mods**, **accessibiltiy features** and **patreon integrations** with mod creators.
+Let's face it, modding is a pain the butt, and no one seems to be addressing the simple issues that the community complains about. This project is aimed to assist and resolve those complaints. With this project, you can look forward to **organization of your mods**, **accessibiltiy features** and **patreon integrations** with mod creators.
 
 
 
