@@ -1,6 +1,6 @@
 {
   "name": "aether.link",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Smultar <Jason@smultar.com>",
   "description": "Quality of life tool, for Final Fantasy modders.",
   "private": false,
@@ -66,10 +66,7 @@
       }
     ],
     "portable": {
-      "artifactName": "aether.link.exe",
-      "artifactCompanyName": "Smultar",
-      "artifactDescription": "Quality of life tool, for Final Fantasy modders.",
-      "artifactCopyright": "Copyright © Smultar 2021"
+      "artifactName": "aether.link.exe"
     },
     "directories": {
       "buildResources": "public"
