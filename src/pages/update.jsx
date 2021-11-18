@@ -77,7 +77,9 @@ const Update = () => {
         });
       
         window.link.api.on('update-error', (event, argument) => {
-          console.log('Unable to download object, an error occurred. Maybe bad internet?')
+          console.log('Unable to download object, an error occurred. Maybe bad internet?');
+          console.log(argument);
+          console.log(argument.error);
           setStatus('Error, retry in 30s'); setStage(0);
           setError(true);
         });

@@ -1,5 +1,5 @@
-const Glasstron = require('glasstron');
-const { screen } = require('electron'); 
+
+const { screen, BrowserWindow } = require('electron'); 
 
 const Store = require('electron-store');
 const path = require('path');
@@ -66,7 +66,7 @@ const Window = (windowName, options) => {
   
     state = ensureVisibleOnSomeDisplay(restore());
   
-    win = new Glasstron.BrowserWindow({ icon: './resources/icon.ico', ...options, ...state,
+    win = new BrowserWindow.BrowserWindow({ icon: './resources/icon.ico', ...options, ...state,
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,

@@ -1,6 +1,6 @@
 {
   "name": "aether.link",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Smultar <Jason@smultar.com>",
   "description": "Quality of life tool, for Final Fantasy modders.",
   "private": false,
@@ -13,7 +13,6 @@
     "electron-acrylic-window": "^0.5.9",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.3.9",
-    "glasstron": "^0.1.0",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -34,7 +33,7 @@
     "react:build": "react-scripts build",
     "react:eject": "react-scripts eject",
     "electron:start": "concurrently -k \"cross-env BROWSER=none npm run react:start\" \"wait-on http://localhost:3000 && electronmon --trace-warnings .\"",
-    "electron:package:win": "concurrently -k \"npm react:build \" \"electron-builder -w --publish never\"",
+    "electron:package:win": "\"npm react:build \" && \"electron-builder -w --publish never\"",
     "postinstall": "electron-builder install-app-deps"
   },
   "browserslist": {

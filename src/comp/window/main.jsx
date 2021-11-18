@@ -30,9 +30,9 @@ function Component({ config, window, history}) {
             console.log(newEditor);
             newEditor.mods = separate(read); 
             newEditor.content.name = read.Name; 
-            newEditor.content.description = read?.Description ? read.Description : 'No description provided, would you like to add one?'; 
-            newEditor.content.author = read?.Author ? read.Author : 'No Author';
-            newEditor.content.version = read?.Version ? read.Version : 'Error';
+            //newEditor.content.description = read?.Description ? read.Description : 'No description provided, would you like to add one?'; 
+            //newEditor.content.author = read?.Author ? read.Author : 'No Author';
+            //newEditor.content.version = read?.Version ? read.Version : 'Error';
 
             setEditor(newEditor);
         }

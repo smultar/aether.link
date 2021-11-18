@@ -1,7 +1,6 @@
 // Module to control the application lifecycle and the native browser window.
 const { app, protocol, ipcMain } = require("electron");
 const { BrowserWindow } = require('electron-acrylic-window')
-const Glasstron = require('glasstron');
 const path = require("path");
 const url = require("url");
 
@@ -72,6 +71,7 @@ function updateWindow() {
     });
 
     autoUpdater.on('error', (error) => {
+        console.log(error);
         updateWindow.webContents.send('update-error', {status: 'error', error: error });
     });
 
@@ -122,8 +122,9 @@ function mainWindow() {
     });
     
     mainWindow.title = 'Aether Link';
-    const appURL = app.isPackaged ? url.format({ pathname: path.join(__dirname, "index.html#main"), protocol: "file:", slashes: true, }) : "http://localhost:3000/main";
+    const appURL = app.isPackaged ? url.format({ pathname: path.join(__dirname, 'index.html'), hash: 'main', protocol: "file:", slashes: true, }) : "http://localhost:3000/main";
     mainWindow.loadURL(appURL);
+
     require("@electron/remote/main").enable(mainWindow.webContents);
 
 
