@@ -18,12 +18,12 @@ const Page = ({history}) => {
     useEffect(() => {
         window.onunhandledrejection = (err) => {
             console.log(err);
-            history.push('/crash', {error: err.reason.stack});
+            history.push({pathname: '/crash', state: {error: err.reason.stack}});    
         }
 
         window.onerror = (err) => {
             console.log(err);
-            history.push('/crash', {error: err});
+            history.push({pathname: '/crash', state: {error: err.reason.stack}});
         }
     
     }, []);
