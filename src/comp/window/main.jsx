@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 
+import OverlayPrompt from '../overlay-prompt';
+
 function Component({ config, window, history}) {
     const [file, setFile] = useState([]);
     const [origin, setOrigin] = useState('');
     const [editor, setEditor] = useState({mods: [], content: { name: '', description: 'No description provided, would you like to add one?', author: '', version: ''}, file: { name: '', content: ''}, selected: null});
-
+    const [overlay, setOverlay] = useState(false);
+    const [loading, setLoading] = useState({state: false, progress: 0});
     const [selected, setSelected] = useState({options: [
+        {label: 'All', value: 'All'},
         {label: 'Body', value: 'Body'}, 
+        {label: 'Head + Body', value: 'Head + Body'},
+        {label: 'Body + Hands + Legs + Feet', value: 'Body + Hands + Legs + Feet'},
+        {label: 'Body + Hands + Legs', value: 'Body + Hands + Legs'},
+        {label: 'Body + Legs + Feet', value: 'Body + Legs + Feet'},
+        {label: 'Leg + Feet', value: 'Leg + Feet'},
         {label: 'Legs', value: 'Legs'},
-        {label: 'Legs', value: 'Legs'},
-        {label: 'Legs', value: 'Legs'},
-        {label: 'Legs', value: 'Legs'},
-        {label: 'Legs', value: 'Legs'},
+        {label: 'Feet', value: 'Feet'},
+        {label: 'Earring', value: 'Earring'},
+        {label: 'Neck', value: 'Neck'},
+        {label: 'Wrist', value: 'Wrist'},
+        {label: 'Rings', value: 'Rings'},
     ], selected: {}, load: true});
 
     // separates object into array of objects by name
@@ -167,10 +177,17 @@ function Component({ config, window, history}) {
 
     }
 
+    const discard = async () => { 
+        setFile([]); setOrigin(''); setEditor({mods: [], content: { name: '', description: 'No description provided, would you like to add one?', author: '', version: ''}, file: { name: '', content: ''}, selected: null});
+        setOverlay(false);
+    }
+
     //TTMPD.mpd "TTMPL.mpl"
     
     return (
         <div id="dock-render">
+
+            {overlay && <OverlayPrompt onSubmit={() => {discard()}} onCancel={() => {setOverlay(false)}}></OverlayPrompt>}
 
             <div id="dock-render-content">
                 {/* Header */}
@@ -179,15 +196,29 @@ function Component({ config, window, history}) {
                         <p className="title">TTMP Tweaker</p>
                         <p className="link">Issues</p>
                         <p className="link">Changes</p>
-                        <div className="load-file" onClick={() => {exportPack(editor)}}>Select a file</div>
-
                     </div>
-                    <p className="description">Modify <span className="tag">.ttmp</span> files without all the hassle.</p>
+
+                    <div className="description-container">
+                        <p className="description">Modify <span className="tag">.ttmp</span> files without all the hassle.</p>
+                        { editor.mods != 0 && 
+                        <div className="button-container">
+                            <div className="button red" onClick={ () => { setOverlay(true) }}>Discard</div>
+                            <div className="button" onClick={ () => { handleChange() }}>Save File</div>
+                        </div>}
+                    </div>
+
+
                 </div>
                 {/* Body */}
                 <div id="body">
 
                     <div className="body-pri">
+                        {loading.state && <div className="loading-container">
+                            <div className="loading-bar"></div>
+                            <div className="loading-bar-fill" style={{width: `${loading.progress}%`}}></div>
+                        </div>}
+
+
                         {/* File */}
                         { (file <= 0) && 
                             <div className="body-empty">
@@ -212,7 +243,7 @@ function Component({ config, window, history}) {
                             </div>
                             <input className="description-input" type="text" placeholder="No description provided, would you like to add one?" value={editor.content.description} size={editor.content.description.length - 4} onChange={event => {editDescription(event.target.value)}}></input>
                             <div className="title-bar">
-                                <p>Modpacks ({editor.mods.length})</p>
+                                <p>Loaded ({editor.mods.length})</p>
                                 <p>Category</p>
                             </div>
                             <div className="modpacks">
@@ -233,8 +264,9 @@ function Component({ config, window, history}) {
                     </div>
 
                     <div className="body-sec">
-                        <Select value={selected.selected} isLoading={selected.load} placeholder="Pending" classNamePrefix="react-select" options={selected.options} onChange={(value) => console.log(value)}/>
                         <input className="input" type="text" placeholder="Name" value={editor.mods[editor.selected]?.name} onChange={event => {editModName(event.target.value)}}></input>
+                        <Select value={(selected.selected == {}) ? {label: 'Category', value: 'Category'} : selected.selected} isLoading={selected.load} placeholder="Pending" classNamePrefix="react-select" options={selected.options} onChange={(value) => console.log(value)}/>
+                        <Select value={(selected.selected == {}) ? {label: 'All', value: 'All'} : selected.selected} isLoading={selected.load} placeholder="Pending" classNamePrefix="react-select" options={selected.options} onChange={(value) => console.log(value)}/>
                     </div>
                     
                 </div>
