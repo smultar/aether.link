@@ -1,6 +1,6 @@
 {
   "name": "aether.link",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "Smultar <Jason@smultar.com>",
   "description": "Quality of life tool, for Final Fantasy modders.",
   "private": false,
@@ -9,6 +9,7 @@
   "dependencies": {
     "@electron/remote": "^2.0.1",
     "adm-zip": "^0.5.9",
+    "archiver": "^5.3.0",
     "cross-env": "^7.0.3",
     "electron-acrylic-window": "^0.5.9",
     "electron-store": "^8.0.1",

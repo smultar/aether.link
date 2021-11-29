@@ -1,15 +1,14 @@
 import React from 'react';
 
-function Component({ onSubmit, onCancel }) {
+function Component({ prompt, onSubmit, onCancel }) {
 
   return (
     <div id="overlay">
-    <script type="text/javascript" src="icons/animated-alert.json"></script>
 
-        <p>Are you sure you want to discard changes?</p>
+        <p>{prompt}</p>
         <div className="button-container">
-            <div className="button" onClick={() => {onSubmit()}}>Yes</div>
-            <div className="button red" onClick={() => {onCancel()}}>No</div>
+            {onSubmit && <div className="button" onClick={() => {onSubmit()}}>Yes</div>}
+            {onCancel && <div className="button red" onClick={() => {onCancel()}}>No</div>}
         </div>
 
     </div>

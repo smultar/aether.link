@@ -7,7 +7,9 @@
         "modpack",
         "modpacks",
         "smultar",
+        "TTMPL",
         "tweaker"
     ],
-    "discord.enabled": true
+    "discord.enabled": true,
+    "rpc.enabled": false
 }

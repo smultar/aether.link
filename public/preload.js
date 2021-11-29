@@ -5,27 +5,9 @@ const { contextBridge, ipcRenderer } = require('electron');
 const { BrowserWindow } = require('@electron/remote');
 const { dialog, shell } = require('@electron/remote');
 
+const fs = require('fs');
 const ADM = require('adm-zip');
-
-/**
- * Change the compression method of all entries
- * @param {AdmZip} zip
- * @param {number} method - Compression method 0 (STORED) or 8 (DEFLATED)
- * @returns {void}
- */
-
- function setGlobalMethod(zip, method) {
-  var entries = zip.getEntries();
-
-  console.log(entries);
-  for (var i = 0; i < entries.length; i++) {
-    var entry = entries[i];
-    entry.header.method = method;
-    console.log(entry);
-  }
-}
-
-
+const archiver = require('archiver');
 
 contextBridge.exposeInMainWorld('link', {
   api: {
@@ -65,7 +47,7 @@ contextBridge.exposeInMainWorld('link', {
 
     },
     saveFile: async () => {
-      const file = await dialog.showSaveDialog({properties: ['showOverwriteConfirmation', 'createDirectory'], filters: [{ name: 'TTMP', extensions: ['ttmp', 'ttmp2', 'ttmp1'] }]}, (filePaths) => {});
+      const file = await dialog.showSaveDialog({properties: ['showOverwriteConfirmation', 'createDirectory'], filters: [{ name: 'TTMP', extensions: ['ttmp2'] }]}, (filePaths) => {});
 
       if (file) return file.filePath;
 
@@ -74,35 +56,92 @@ contextBridge.exposeInMainWorld('link', {
 
   internal: {
     unpack: (data) => {
+      
       const zip = new ADM(data);
-
       const files = zip.getEntries();
 
+      let decompressedData = zip.readAsText(files[0]);
+
+      if (data.endsWith('.ttmp2')) {
+        // Standard TTMP2
+        return decompressedData;
+
+      } else if (data.endsWith('.ttmp1') || data.endsWith('.ttmp')) {
+        // Partial Compatibility Support
+
+        // Convert to TTMP2
+        console.log(decompressedData);
+        let correctedData = decompressedData.replace(/[}](?=}*[^/}])/g, "},");
+
+        let damagedArray = correctedData.split("},"); 
+
+
+          let repairedData = damagedArray.map((item, index) => { 
+
+            if (index === damagedArray.length - 1) return;
+
+            let correctedItem = item.concat('}');
+            return JSON.parse(correctedItem);
+
+          });
+
+          repairedData.pop(); // Removed Last Item
+
+          
+          // Add missing data
+          let formatData = {
+            Author: `null`,
+            Description: `null`,
+            MinimumFrameworkVersion: "1.3.0.0",
+            ModPackPages: null,
+            Name: `null`,
+            SimpleModsList: repairedData,
+            TTMPVersion: "1.3s",
+            Url: "",
+            Version: "1.0.0",
+          }
+
+          formatData.Unstable = true;
+  
+          return JSON.stringify(formatData);
+          
+
+        
+      }
+
+
+
+
+    },
+
+    preview: (data) => {
+      const zip = new ADM(data);
+      const files = zip.getEntries();
       var decompressedData = zip.readAsText(files[0]);
-      console.log(decompressedData);
-      console.log(JSON.parse(decompressedData));
 
-
-      return decompressedData;
+      return JSON.parse(decompressedData);
     },
 
     export: (origin, file, data) => {
       console.log('Starting export process');
       
+      const output = fs.createWriteStream(file);
+      const archive = archiver('zip', { store: true, zlib: { level: 0 }});
+
+      archive.pipe(output);
+
       console.log('Loading original file');
       const originZIP = new ADM(origin); 
       const originFiles = originZIP.getEntries();
       const originDecompressedData = originZIP.readFile(originFiles[1]);
-      
+
+      console.log(data)
+
+      archive.append(JSON.stringify(data) , { name: 'TTMPL.mpl' })
+      archive.append(originDecompressedData, { name: 'TTMPL.mpd' })
+
       console.log('Writing Memory File');
-      const zip = new ADM(data); 
-      //zip.addFile('TTMPL.mpl', Buffer.from(JSON.stringify(data), "utf8"));
-      zip.addFile('TTMPL.mpl', Buffer.alloc(JSON.stringify(data).length, JSON.stringify(data))); var entry = zip.getEntry("TTMPL.mpl"); entry.header.method = 0;
-      zip.addFile('TTMPL.mpd', Buffer(originDecompressedData));
-      
-      console.log('Exporting');
-      ///setGlobalMethod(zip, 0);
-      zip.writeZip(file);
+      archive.finalize();
     }
   },
   

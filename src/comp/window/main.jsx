@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 
 import OverlayPrompt from '../overlay-prompt';
+import Tooltips from '../tooltips';
 
 function Component({ config, window, history}) {
     const [file, setFile] = useState([]);
     const [origin, setOrigin] = useState('');
-    const [editor, setEditor] = useState({mods: [], content: { name: '', description: 'No description provided, would you like to add one?', author: '', version: ''}, file: { name: '', content: ''}, selected: null});
+    const [editor, setEditor] = useState({mods: [], content: { name: '', description: 'No description provided, would you like to add one?', author: '', version: ''}, file: { name: '', content: ''}, selected: null, unstable: null});
     const [overlay, setOverlay] = useState(false);
     const [loading, setLoading] = useState({state: false, progress: 0});
     const [selected, setSelected] = useState({options: [
@@ -17,6 +18,7 @@ function Component({ config, window, history}) {
         {label: 'Body + Hands + Legs', value: 'Body + Hands + Legs'},
         {label: 'Body + Legs + Feet', value: 'Body + Legs + Feet'},
         {label: 'Leg + Feet', value: 'Leg + Feet'},
+        {label: 'Hair', value: 'Hair'},
         {label: 'Legs', value: 'Legs'},
         {label: 'Feet', value: 'Feet'},
         {label: 'Earring', value: 'Earring'},
@@ -24,6 +26,8 @@ function Component({ config, window, history}) {
         {label: 'Wrist', value: 'Wrist'},
         {label: 'Rings', value: 'Rings'},
     ], selected: {}, load: true});
+
+    const [modPages, setModPages] = useState(false);
 
     // separates object into array of objects by name
     const handleChange = async () => {
@@ -40,11 +44,16 @@ function Component({ config, window, history}) {
             console.log(newEditor);
             newEditor.mods = separate(read); 
             newEditor.content.name = read.Name; 
-            //newEditor.content.description = read?.Description ? read.Description : 'No description provided, would you like to add one?'; 
-            //newEditor.content.author = read?.Author ? read.Author : 'No Author';
-            //newEditor.content.version = read?.Version ? read.Version : 'Error';
+            newEditor.content.description = read?.Description ? read.Description : 'No description provided, would you like to add one?'; 
+            newEditor.content.author = read?.Author ? read.Author : 'No Author';
+            newEditor.content.version = read?.Version ? read.Version : 'Error';
+            newEditor.unstable = read.Unstable;
 
             setEditor(newEditor);
+
+            if (read.ModPackPages) {
+                setModPages(true);
+            }
         }
     };
     
@@ -178,8 +187,8 @@ function Component({ config, window, history}) {
     }
 
     const discard = async () => { 
-        setFile([]); setOrigin(''); setEditor({mods: [], content: { name: '', description: 'No description provided, would you like to add one?', author: '', version: ''}, file: { name: '', content: ''}, selected: null});
-        setOverlay(false);
+        setFile([]); setOrigin(''); setEditor({mods: [], content: { name: '', description: 'No description provided, would you like to add one?', author: '', version: ''}, file: { name: '', content: ''}, selected: null, unstable: null});
+        setOverlay(false); setModPages(false);
     }
 
     //TTMPD.mpd "TTMPL.mpl"
@@ -187,13 +196,14 @@ function Component({ config, window, history}) {
     return (
         <div id="dock-render">
 
-            {overlay && <OverlayPrompt onSubmit={() => {discard()}} onCancel={() => {setOverlay(false)}}></OverlayPrompt>}
+            {overlay && <OverlayPrompt prompt="Are you sure you want to discard changes?" onSubmit={() => {discard()}} onCancel={() => {setOverlay(false)}}></OverlayPrompt>}
 
             <div id="dock-render-content">
                 {/* Header */}
                 <div id="header">
                     <div className="header-title">
                         <p className="title">TTMP Tweaker</p>
+                        {editor.unstable && <Tooltips margin={5} icon='svg/alert-yellow.svg' title='Partial Support' description={`You have loaded an old file format of TTMP. This format isn't supported, however I've provided partial support.`}></Tooltips>}
                         <p className="link">Issues</p>
                         <p className="link">Changes</p>
                     </div>
@@ -203,7 +213,7 @@ function Component({ config, window, history}) {
                         { editor.mods != 0 && 
                         <div className="button-container">
                             <div className="button red" onClick={ () => { setOverlay(true) }}>Discard</div>
-                            <div className="button" onClick={ () => { handleChange() }}>Save File</div>
+                            <div className="button" onClick={ () => { exportPack(editor) }}>Save File</div>
                         </div>}
                     </div>
 
@@ -231,9 +241,21 @@ function Component({ config, window, history}) {
                             </div>
                         }
 
+                        {/* Advanced ModPacks */}
+                        { modPages && 
+                            <div className="body-empty">
+                                <div className="not-loaded">
+                                    <img className="icon" src="svg/alert-yellow.svg"></img>
+                                    <div className="title">Advanced Modpack Loaded</div>
+                                    <div className="description">Sadly, this modpack isn't supported yet. I promise compatibility soon.</div>
+                                    <div className="load-file" onClick={() => {handleChange()}}>Select a file</div>
+                                </div>
+                            </div>
+                        }
+
                         
                         {/* Editor */}
-                        { (file != 0) && 
+                        { (file != 0 && modPages == false) && 
                         <div className="body-filled">
                             <input className="title-input" type="text" placeholder="Name" value={editor.content.name} size={editor.content.name.length - 3}  onChange={event => {editName(event.target.value)}} ></input>
                             
