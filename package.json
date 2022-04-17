@@ -29,6 +29,8 @@
   },
   "devDependencies": {
     "ansi-html": ">=0.0.8",
+    "async": ">=2.6.4",
+    "nth-check": ">=2.0.1",
     "concurrently": "^6.3.0",
     "electron": "^15.3.5",
     "electron-builder": "^22.5.1",
