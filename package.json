@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "concurrently": "^6.3.0",
-    "electron": "^15.3.0",
+    "electron": "^15.3.5",
     "electron-builder": "^22.13.1",
     "electronmon": "^2.0.2"
   },
