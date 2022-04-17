@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Select from 'react-select';
 
 import OverlayPrompt from '../overlay-prompt';
 import Tooltips from '../tooltips';
+import { Canvas } from "react-three-fiber";
+
 
 function Component({ config, window, history}) {
+
     const [file, setFile] = useState([]);
     const [origin, setOrigin] = useState('');
     const [editor, setEditor] = useState({mods: [], content: { name: '', description: 'No description provided, would you like to add one?', author: '', version: ''}, file: { name: '', content: ''}, selected: null, unstable: null});
@@ -191,6 +194,7 @@ function Component({ config, window, history}) {
         setOverlay(false); setModPages(false);
     }
 
+
     //TTMPD.mpd "TTMPL.mpl"
     
     return (
@@ -252,6 +256,9 @@ function Component({ config, window, history}) {
                                 </div>
                             </div>
                         }
+
+
+
 
                         
                         {/* Editor */}
