@@ -15,7 +15,7 @@
     "cross-env": "^7.0.3",
     "electron-acrylic-window": "^0.5.9",
     "electron-store": "^8.0.1",
-    "electron-updater": "^4.3.9",
+    "electron-updater": "^4.6.5",
     "node-sass": "^7.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
