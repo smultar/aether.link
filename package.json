@@ -13,7 +13,7 @@
     "adm-zip": "^0.5.9",
     "archiver": "^5.3.0",
     "cross-env": "^7.0.3",
-    "electron-acrylic-window": "^0.5.9",
+    "electron-acrylic-window": "^0.5.11",
     "electron-store": "^8.0.1",
     "electron-updater": "^4.6.5",
     "node-sass": "^7.0.0",
