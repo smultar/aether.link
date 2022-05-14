@@ -11,7 +11,7 @@
     "@react-three/drei": "^7.24.0",
     "@react-three/fiber": "^7.0.27",
     "adm-zip": "^0.5.9",
-    "archiver": "^5.3.0",
+    "archiver": "^5.3.1",
     "cross-env": "^7.0.3",
     "electron-acrylic-window": "^0.5.9",
     "electron-store": "^8.0.1",
