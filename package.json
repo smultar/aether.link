@@ -24,7 +24,7 @@
     "react-select": "^5.2.2",
     "react-three-fiber": "^6.0.13",
     "sass": "^1.49.11",
-    "three": "^0.135.0",
+    "three": "^0.139.2",
     "wait-on": "^6.0.0"
   },
   "devDependencies": {
