@@ -23,7 +23,7 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.2.2",
     "react-three-fiber": "^6.0.13",
-    "sass": "^1.49.11",
+    "sass": "^1.50.1",
     "three": "^0.135.0",
     "wait-on": "^6.0.0"
   },
